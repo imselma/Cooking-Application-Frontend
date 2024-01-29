@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { LoginFormData } from '../pages/LoginPage'
 import axios from 'axios'
 import { useState } from 'react'
+import { RegisterFormData } from '../pages/RegisterPage'
 
 
 // initialize userToken from local storage
@@ -18,6 +19,25 @@ const initialState = {
     success: false, // for monitoring the registration process.
     userID: null
 }
+
+export const registerUser = createAsyncThunk(
+    'auth/register',
+    async (data: RegisterFormData, { rejectWithValue }) => {
+        try {
+            const responseData = {...data, userType: 'MEMBER'}
+            await axios.post('http://localhost:2804/api/auth/register', responseData);
+
+        }catch (error: any){
+            if (error.response && error.response.data.message) {
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.message)
+            }
+        }
+    }
+ )
+ 
+ 
 
 
 
@@ -55,7 +75,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            localStorage.removeItem('userToken') // deletes token from storage
+            localStorage.clear() // deletes all data from local storage
             state.loading = false
             state.userInfo = null
             state.userToken = null
@@ -78,8 +98,20 @@ const authSlice = createSlice({
             state.loading = false
             state.error = action.payload
         })
-
+        builder.addCase(registerUser.pending, (state) => {
+            state.loading = true
+            state.error = null
+        })
+        builder.addCase(registerUser.fulfilled, (state) => {
+            state.loading = false
+            state.success = true
+        })
+        builder.addCase(registerUser.rejected, (state, action: any) => {
+            state.loading = false
+            state.error = action.payload
+        })
     }
+ 
 })
 
 export const { logout } = authSlice.actions

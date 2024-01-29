@@ -1,5 +1,3 @@
-
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../store/authSlice'
 import { useNavigate } from 'react-router-dom'
@@ -40,21 +38,26 @@ const NavigationBar = () => {
                         <li className="nav-item" style={ItemStyle}>
                             <a className="nav-link" style={TextStyle} href="/aboutus">About Us</a>
                         </li>
-                        <li className="nav-item" style={ItemStyle}>
-                            <a className="nav-link" style={TextStyle} href="/profile">Profile</a>
-                        </li>
-                        <li className="nav-item" style={ItemStyle}>
-                        <button type="button" className="btn" 
-                                style={{ 
-                                    backgroundColor: 'white',
-                                    color: '#47817E',
-                                    width: '75px', 
-                                    height: '35px', 
-                                    fontSize: '15px', 
-                                    fontWeight: 'bold', 
-                                    marginLeft: '10px', 
-                                    marginTop: '3px'}} onClick={() => {dispatch(logout()); navigate("/home")}}>Logout</button>
-                        </li>
+                        {localStorage.getItem('userToken') &&  (
+                            <>
+                                <li className="nav-item" style={ItemStyle}>
+                                    <a className="nav-link" style={TextStyle} href="/profile">Profile</a>
+                                </li>
+                                <li className="nav-item" style={ItemStyle}>
+                                    <button type="button" className="btn"
+                                        style={{
+                                            backgroundColor: 'white',
+                                            color: '#47817E',
+                                            width: '75px',
+                                            height: '35px',
+                                            fontSize: '15px',
+                                            fontWeight: 'bold',
+                                            marginLeft: '10px',
+                                            marginTop: '3px'
+                                        }} onClick={() => { dispatch(logout()); navigate("/home") }}>Logout</button>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </div>

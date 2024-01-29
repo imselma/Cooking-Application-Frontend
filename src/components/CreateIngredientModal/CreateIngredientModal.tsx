@@ -1,23 +1,10 @@
-import axios from 'axios'
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react'
+import useCreateIngredient from '../../customHooks/useCreateIngredient';
 
-const modalStyle = {
-    width: '600px',
-    height: '600px',
-    overflowY: "scroll",
-    border: '2px solid gray',
-    borderRadius: '20px',
-    margin: 'auto',
-    marginTop: '100px',
-    backgroundColor: '#fff',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
-    position: "absolute",
-    top: "-40px",
-    right: "30%",
-    zIndex: 10
-}
+const CreateIngredientModal = ({recipeData, newIngredients, closeSubmodal, closeModal}) => {
 
-const CreateIngredientModal = ({closeSubmodal, newIngredients, recipeData}) => {
+    const createIngredient = useCreateIngredient();
 
     const [ingredientData, setIngredientData] = useState({
         name: "",
@@ -25,35 +12,40 @@ const CreateIngredientModal = ({closeSubmodal, newIngredients, recipeData}) => {
         measurementUnit: " "
     })
 
-    const [ingrObjects, setIngrObjects] = useState([])
-
-
-    useEffect(() => {
-        const _ingrObjects = []
-        for(const newIngredient of newIngredients) {
-            _ingrObjects.push({...ingredientData, name: newIngredient})
-        }
-        setIngrObjects(_ingrObjects)
-    }, [])
-
-    console.log("objekti")
-    console.log(ingrObjects)
     const sendRequest = () => {
-        const _ingrObjects = []
-        for(const ingrObj of ingrObjects) {
-            axios.post("http://localhost:2804/api/ingredients/addIngredient", ingrObj).then(res => {
-                axios.post("http://localhost:2804/api/recipes/addRecipe", recipeData).then(res1 => {
-                    console.log(res1.data)
-                })
-            })
+        for(const newIngredient of newIngredients) {
+            
+                   createIngredient.mutate({...ingredientData, name: newIngredient}, {
+                    onSuccess: () => {
+                      console.log('Ingredient added successfully!');
+                    },
+                    onError: (error) => {
+                      console.error('Error adding ingredient:', error);
+                    },
+                    onSettled: () => {
+                    },
+                  });
         }
-
     }
-
+    
   return (
     <>
         <div className="modalBackground">
-            <div className="modal-content" style={modalStyle}>
+            <div className="modal-content" style={{
+                width: '600px',
+                height: '600px',
+                overflowY: "scroll",
+                border: '2px solid gray',
+                borderRadius: '20px',
+                margin: 'auto',
+                marginTop: '100px',
+                backgroundColor: '#fff',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+                position: "absolute",
+                top: "-40px",
+                right: "30%",
+                zIndex: 10
+            }}>
                 <div className="modal-header">
                     <h1 className="modal-title fs-5" id="exampleModalLabel" style={{ marginLeft: '50px', marginTop: '20px', fontWeight: 'bold'}}>Add Ingredient: </h1>
                 </div>
@@ -65,15 +57,15 @@ const CreateIngredientModal = ({closeSubmodal, newIngredients, recipeData}) => {
                                     <>
                                         <div key={index} className="mb-3">
                                             <label className="form-label">Name:</label>
-                                            <input onChange={(e) => {ingrObjects[index].name = e.target.value}} value={item} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                            <input onChange={(e) => setIngredientData({ ...ingredientData, name: e.target.value })} value={item} type="text" className="form-control" id="exampleInputName2" aria-describedby="emailHelp" />
                                         </div>
                                         <div key={index + 1} className="mb-3">
                                             <label className="form-label">Category:</label>
-                                            <input onChange={(e) => {ingrObjects[index].category = e.target.value}} type='text' className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                            <input onChange={(e) => setIngredientData({ ...ingredientData, category: e.target.value })} type='text' className="form-control" id="exampleInputDescription2" aria-describedby="emailHelp" />
                                         </div>
                                         <div key={index + 2} className="mb-3">
                                             <label className="form-label">Measurement unit:</label>
-                                            <input onChange={(e) => {ingrObjects[index].measurementUnit = e.target.value}} type='text' className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                            <input onChange={(e) => setIngredientData({ ...ingredientData, measurementUnit: e.target.value })} type='text' className="form-control" id="exampleInputUnit2" aria-describedby="emailHelp" />
                                         </div>
                                     </>
                                 )
@@ -84,8 +76,9 @@ const CreateIngredientModal = ({closeSubmodal, newIngredients, recipeData}) => {
                 <div className="modal-footer" style={{ marginRight: '45px', marginBottom: '25px' }}>
                     <button type="button" className="btn"
                         onClick={() => {
-                            recipeData.ingredients = [...recipeData.ingredients, ...ingrObjects]
                             sendRequest()
+                            closeSubmodal(false)
+                            closeModal(false)
                         }}
                         style={{
                             backgroundColor: '#976B7A',
