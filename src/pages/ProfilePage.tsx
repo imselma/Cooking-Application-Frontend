@@ -10,7 +10,16 @@ import RecipeCard from '../components/RecipeCard'
 
 const ProfilePage = () => {
 
-  const [userData, setUserData] = useState<User>([])
+  const [userData, setUserData] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+    username: "",
+    userType: "MEMBER",
+  })
+
+  //const [userData, setUserData] = useState<User>([])
   const [id, setId] = useState(localStorage.getItem('userID'))
   const [openModal, setOpenModal] = useState(false);
 
@@ -69,22 +78,24 @@ const ProfilePage = () => {
               <p style={{ marginLeft: '10px', color: 'white' }}>{userData.email}</p>
             </div>
           </div>
-          <button type="button" className="btn" style={{ backgroundColor: '#976B7A', color: 'white', width: '120px', height: '40px', fontSize: '17px', marginLeft: '20px', marginTop:'-20px', fontWeight: 'bold' }} onClick={() => setOpenModal(true)}>Edit profile</button>
+          <button type="button" className="btn" style={{ backgroundColor: '#976B7A', color: 'white', width: '120px', height: '40px', fontSize: '17px', marginLeft: '20px', marginTop: '-20px', fontWeight: 'bold' }} onClick={() => setOpenModal(true)}>Edit profile</button>
         </div>
-          <div style={{ marginLeft: '40px', width: '100%' }}>
-            <h2>{userData.name}'s recipes</h2>
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '10px', marginLeft: '20px'}}>
-            {
-              userRecipes?.map((recipe, i) => (
-                  <RecipeCard recipe={recipe} key={i} />
-              ))
-            }
-          </div>
+        <div style={{ marginLeft: '40px', width: '100%' }}>
+          <h2>{userData.name}'s recipes</h2>
         </div>
-        {openModal && <EditProfileModal closeModal={setOpenModal} />}
-      </>
-      )
+        <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '10px', marginLeft: '20px' }}>
+          {userRecipes.length > 0 ? (
+            userRecipes.map((recipe, i) => (
+              <RecipeCard recipe={recipe} key={i} />
+            ))
+          ) : (
+            <h4 style={{ marginLeft: '20px', marginTop: '30px', color: '#976B7A' }}>You have't created recipes yet!</h4>
+          )}
+        </div>
+      </div>
+      {openModal && <EditProfileModal closeModal={setOpenModal} />}
+    </>
+  )
 }
 
-      export default ProfilePage
+export default ProfilePage

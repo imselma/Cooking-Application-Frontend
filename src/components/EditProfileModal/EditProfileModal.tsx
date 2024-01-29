@@ -99,10 +99,7 @@ const EditProfileModal = ({ closeModal }) => {
                                 <label className="form-label">Email:</label>
                                 <textarea className="form-control" value={profileData.email} id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e) => setProfileData({ ...profileData, email: e.target.value })} />
                             </div>
-                            <div className="mb-3">
-                                <label className="form-label">Password:</label>                                                                             
-                                <input type="password" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e) => setProfileData({ ...profileData, password: e.target.value })} />
-                            </div>
+                           
                             <div className="mb-3">
                                 <label className="form-label">Username:</label>
                                 <input type="text" className="form-control" value={profileData.username} id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e) => setProfileData({ ...profileData, username: e.target.value })} />

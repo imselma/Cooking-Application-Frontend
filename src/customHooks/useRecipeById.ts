@@ -7,7 +7,7 @@ const useRecipeById = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (id) => axios.get<Recipe>(`http://localhost:2804/api/recipes/notDTO/${id}`).then((response) => response.data),);
+    (id: string) => axios.get<Recipe>(`http://localhost:2804/api/recipes/notDTO/${id}`).then((response) => response.data),);
 };
 
 export default useRecipeById;
