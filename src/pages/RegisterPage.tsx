@@ -9,12 +9,12 @@ import { registerUser } from '../store/authSlice';
 
 
 export type RegisterFormData = {
-    email: string;
-    password: string;
-    username: string;
-    name: string;
-    surname: string;
-    userType: 'MEMBER';
+    email?: string;
+    password?: string;
+    username?: string;
+    name?: string;
+    surname?: string;
+    userType?: 'MEMBER';
 }
 
 const registrationSchema = yup.object({
@@ -23,7 +23,7 @@ const registrationSchema = yup.object({
     username: yup.string().required("This field is required."),
     name: yup.string().required("This field is required."),
     surname: yup.string().required("This field is required."),
-})
+}).required()
 
 
 const RegisterPage = () => {

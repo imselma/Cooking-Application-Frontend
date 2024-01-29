@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { LoginFormData } from '../pages/LoginPage'
 import axios from 'axios'
-import { useState } from 'react'
 import { RegisterFormData } from '../pages/RegisterPage'
 
 

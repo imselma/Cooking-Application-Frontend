@@ -8,15 +8,15 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 export type LoginFormData = {
-    email: string;
-    password: string;
+    email?: string;
+    password?: string;
 }
 
 const loginSchema = yup
     .object({
         email: yup.string().email().required("This field is required."),
         password: yup.string().min(5).max(20).required("This field is required."),
-    });
+    }).required()
 
 const LoginPage = () => {
     const navigate = useNavigate()
