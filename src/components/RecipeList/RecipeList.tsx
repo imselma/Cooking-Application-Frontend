@@ -1,31 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import RecipeCard from '../RecipeCard'
 import SearchBar from '../SearchBar'
-import axios from 'axios'
 import CreateRecipeModal from '../CreateRecipeModal'
+import useRecipes from '../../customHooks/useRecipes'
+import { Recipe } from '../../utils/types'
 
 
 
 const RecipeList = () => {
-    const [recipes, setRecipes] = useState([])
-    const [searchResult, setSearchResult] = useState([])
+
     const [openModal, setOpenModal] = useState(false);
     const userToken = localStorage.getItem('userToken')
+    const { data: recipes } = useRecipes()
+    const [searchResult, setSearchResult] = useState<Recipe[]>([]);
 
     useEffect(() => {
-        axios.get("http://localhost:2804/api/recipes/").then(res => {
-            console.log(res.data)
-            setRecipes(res.data)
-            setSearchResult(res.data)
-        })
-    }, [])
-
+        setSearchResult(recipes);
+    }, [recipes]);
 
     const handleChange = (value: string) => {
         const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(value.toLowerCase()))
         console.log(filteredRecipes);
         setSearchResult(filteredRecipes)
     }
+    
     return (
         <>
             <div className='search-and-button' style={{ display: 'flex' }}>
@@ -50,12 +48,10 @@ const RecipeList = () => {
                     </button>
                 )}
             </div>
-            <div className='row' style={{ marginTop: '70px', marginLeft: '15px' }}>
-                {
-                    searchResult.map((recipe, i) => (
-                        <RecipeCard recipe={recipe} key={i} />
-                    ))
-                }
+            <div className='row' style={{ marginTop: '30px', marginLeft: '15px', alignItems: 'center' }}>
+                {searchResult && searchResult.map((recipe, i) => (
+                    <RecipeCard recipe={recipe} key={i} />
+                ))}
             </div>
             {openModal && <CreateRecipeModal closeModal={setOpenModal} />}
         </>

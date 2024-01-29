@@ -1,24 +1,29 @@
 import React, { useEffect } from 'react'
-import { object, string } from 'yup';
+import * as yup from "yup"
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
 import { login } from '../store/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 export type LoginFormData = {
     email: string;
     password: string;
 }
 
-const loginSchema = object({
-    email: string().email().required("This field is required."),
-    password: string().min(5).max(8).required("This field is required."),
-});
+const loginSchema = yup
+    .object({
+        email: yup.string().email().required("This field is required."),
+        password: yup.string().min(5).max(20).required("This field is required."),
+    });
 
 const LoginPage = () => {
     const navigate = useNavigate()
-    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({})
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+        resolver: yupResolver(loginSchema)
+    })
+
     const { loading, userToken, error } = useSelector((state: RootState) => state.auth)
 
 
@@ -29,7 +34,7 @@ const LoginPage = () => {
     }
 
     useEffect(() => {
-        if(userToken) {
+        if (userToken) {
             navigate("/recipes")
         }
     }, [navigate, userToken])
@@ -54,14 +59,19 @@ const LoginPage = () => {
                         <div className="mb-5">
                             <label htmlFor="exampleFormControlInput1" className="form-label"> <b>Email address:</b></label>
                             <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" {...register("email")} />
+                            <div className="form-text">We'll never share your email with others.</div>
+                            {errors.email && <small style={{ color: "red" }}>{errors.email.message}</small>}
                         </div>
                         <div className='mb-5'>
                             <label htmlFor="inputPassword5" className="form-label"><b>Password:</b></label>
                             <input type="password" id="inputPassword5" className="form-control" aria-describedby="passwordHelpBlock" {...register("password")} />
+                            {errors.password && <small style={{ color: "red" }}>{errors.password.message}</small>}
                         </div>
-                        
-                            <button className="btn" type="submit" style={{ backgroundColor: '#47817E', color: 'white' }} disabled={loading}> {loading ? 'Submitting...' : 'Log in'}</button>
-                        
+
+                        <button className="btn" type="submit" style={{ backgroundColor: '#47817E', color: 'white' }} disabled={loading}>
+                            {loading ? 'Submitting...' : 'Log in'}
+                        </button>
+
                     </form>
                 </div>
             </div>

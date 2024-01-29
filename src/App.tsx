@@ -10,7 +10,9 @@ import LoginPage from "./pages/LoginPage";
 import { RegisterPage } from "./pages";
 import ProtectedRoute from "./utils/ProtectedRoute";
 
+
 function App() {
+
 
   return (
     <>
