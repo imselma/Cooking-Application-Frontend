@@ -8,7 +8,7 @@ const useRecipeById = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (id: string) => axios.get<Recipe>(`https://cooking-app-backend.onrender.com/recipes/notDTO/${id}`).then((response) => response.data),);
+    (id: string) => axios.get<Recipe>(`https://dashboard.render.com/api/recipes/notDTO/${id}`).then((response) => response.data),);
 };
 
 export default useRecipeById;
