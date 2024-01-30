@@ -28,7 +28,7 @@ const EditRecipeModal = ({ closeModal }) => {
         const [submodal, setSubmodal] = useState(false);
 
         useEffect(() => {
-            axios.get("https://dashboard.render.com/api/ingredients/").then((res) =>
+            axios.get("https://cooking-app-backend.onrender.com/api/ingredients/").then((res) =>
             {
                 console.log(res.data);
                 setIngredients(res.data);
