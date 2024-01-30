@@ -5,4 +5,4 @@ export const recipeList: Recipe[] = [
 
 ]
 
-export const BASE_URL = 'http://localhost:2804/api'
+export const BASE_URL = 'https://cooking-app-backend.onrender.com'

@@ -3,12 +3,13 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { User } from "../utils/types";
+import { BASE_URL } from "../constants";
 
 const useEditProfile = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    ({ id, userData }: { id: any; userData: User }) => axios.put(`http://localhost:2804/api/users/${id}`, userData));
+    ({ id, userData }: { id: any; userData: User }) => axios.put(BASE_URL + `/users/${id}`, userData));
 };
 
 export default useEditProfile;

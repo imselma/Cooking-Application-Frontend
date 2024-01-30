@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import CreateIngredientModal from "../CreateIngredientModal"
 import useCreateRecipe from "../../customHooks/useCreateRecipe"
+import { BASE_URL } from "../../constants"
 
 const CreateRecipeModal = ({ closeModal }) => {
     const [recipeData, setRecipeData] = useState({
@@ -23,14 +24,14 @@ const CreateRecipeModal = ({ closeModal }) => {
     const [userId, setUserId] = useState(localStorage.getItem("userID"));
 
     useEffect(() => {
-        axios.get("http://localhost:2804/api/users/byemail", { params: { email } }).then(res1 => {
+        axios.get(BASE_URL + "/users/byemail", { params: { email } }).then(res1 => {
             console.log(res1.data)
         })
     }, [email])
 
 
     useEffect(() => {
-        axios.get("http://localhost:2804/api/ingredients/").then((res) =>
+        axios.get(BASE_URL + "/ingredients/").then((res) =>
         {
             console.log(res.data);
             setIngredients(res.data);
