@@ -4,11 +4,10 @@ import { Ingredient } from "../utils/types";
 import axios from "axios";
 
 
-
 const useCreateIngredient = () => {
     const queryClient = useQueryClient();
     return useMutation((ingredientData: Ingredient) => 
-    axios.post("https://dashboard.render.com/api/ingredients/addIngredient", ingredientData) )
+    axios.post("http://localhost:2804/api/ingredients/addIngredient", ingredientData) )
 }
 
 export default useCreateIngredient

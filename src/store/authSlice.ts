@@ -25,7 +25,7 @@ export const registerUser = createAsyncThunk(
     async (data: RegisterFormData, { rejectWithValue }) => {
         try {
             const responseData = {...data, userType: 'MEMBER'}
-            await axios.post('https://dashboard.render.com/api/auth/register', responseData);
+            await axios.post('http://localhost:2804/api/auth/register', responseData);
 
         }catch (error: any){
             if (error.response && error.response.data.message) {
@@ -46,13 +46,13 @@ export const login = createAsyncThunk(
     'auth/login',
     async (body: LoginFormData, { rejectWithValue }) => {
         try {
-            const { data } = await axios.post('https://dashboard.render.com/api/auth/login',
+            const { data } = await axios.post('http://localhost:2804/api/auth/login',
                 body,
             )
             localStorage.setItem('userToken', data.jwt)
             localStorage.setItem('userEmail', body.email);
             const email = localStorage.getItem('userEmail')
-            axios.get("https://dashboard.render.com/api/users/byemail", { params: {email} }).then(res1 => {
+            axios.get("http://localhost:2804/api/users/byemail", { params: {email} }).then(res1 => {
                 console.log(res1.data)
                 localStorage.setItem('userID', res1.data.id)
             })
