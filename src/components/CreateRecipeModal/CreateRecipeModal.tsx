@@ -24,14 +24,14 @@ const CreateRecipeModal = ({ closeModal }) => {
     const [userId, setUserId] = useState(localStorage.getItem("userID"));
 
     useEffect(() => {
-        axios.get("https://cooking-app-backend.onrender.com/users/byemail", { params: { email } }).then(res1 => {
+        axios.get("https://dashboard.render.com/api/users/byemail", { params: { email } }).then(res1 => {
             console.log(res1.data)
         })
     }, [email])
 
 
     useEffect(() => {
-        axios.get("https://cooking-app-backend.onrender.com/ingredients/").then((res) =>
+        axios.get("https://dashboard.render.com/api/ingredients/").then((res) =>
         {
             console.log(res.data);
             setIngredients(res.data);

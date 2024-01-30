@@ -8,7 +8,7 @@ import axios from "axios";
 const useCreateIngredient = () => {
     const queryClient = useQueryClient();
     return useMutation((ingredientData: Ingredient) => 
-    axios.post("https://cooking-app-backend.onrender.com/ingredients/addIngredient", ingredientData) )
+    axios.post("https://dashboard.render.com/api/ingredients/addIngredient", ingredientData) )
 }
 
 export default useCreateIngredient

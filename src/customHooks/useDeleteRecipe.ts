@@ -8,7 +8,7 @@ const useDeleteRecipe = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (id: any) => axios.delete(`https://cooking-app-backend.onrender.com/recipes/${id}`));
+    (id: any) => axios.delete(`https://dashboard.render.com/api/recipes/${id}`));
 };
 
 export default useDeleteRecipe;
