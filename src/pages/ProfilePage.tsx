@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react'
-import EditProfileModal from '../components/EditProfileModal'
 import useRecipes from '../customHooks/useRecipes'
 import useUserById from '../customHooks/useUserById'
 import RecipeCard from '../components/RecipeCard'
@@ -20,7 +19,7 @@ const ProfilePage = () => {
 
   //const [userData, setUserData] = useState<User>([])
   const [id, setId] = useState(localStorage.getItem('userID'))
-  const [openModal, setOpenModal] = useState(false);
+
 
   const { data: recipes } = useRecipes();
   const getUserById = useUserById();
@@ -77,7 +76,6 @@ const ProfilePage = () => {
               <p style={{ marginLeft: '10px', color: 'white' }}>{userData.email}</p>
             </div>
           </div>
-          <button type="button" className="btn" style={{ backgroundColor: '#976B7A', color: 'white', width: '120px', height: '40px', fontSize: '17px', marginLeft: '20px', marginTop: '-20px', fontWeight: 'bold' }} onClick={() => setOpenModal(true)}>Edit profile</button>
         </div>
         <div style={{ marginLeft: '40px', width: '100%' }}>
           <h2>{userData.name}'s recipes</h2>
@@ -92,7 +90,6 @@ const ProfilePage = () => {
           )}
         </div>
       </div>
-      {openModal && <EditProfileModal closeModal={setOpenModal} />}
     </>
   )
 }

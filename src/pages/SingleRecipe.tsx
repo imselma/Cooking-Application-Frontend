@@ -95,7 +95,7 @@ const SingleRecipe = () => {
                                     {userID === recipeData.user.id ? (
                                         <div className='buttons' style={{ display: 'flex', gap: '15px', marginTop: '70px', marginBottom: '20px', marginLeft: '60px' }}>
                                             <button type="button" className="btn" style={{ backgroundColor: 'white', border: '2px solid #976B7A', color: '#976B7A', width: '125px', height: '45px', fontSize: '18px', fontWeight: 'bold' }} onClick={handleDelete}>Delete</button>
-                                            <button type="button" className="btn" style={{ backgroundColor: '#976B7A', color: 'white', width: '125px', height: '45px', fontSize: '18px', marginLeft: '20px', marginTop:'0px', fontWeight: 'bold' }} onClick={() => setOpenModal(true)}>Edit profile</button>
+                                            <button type="button" className="btn" style={{ backgroundColor: '#976B7A', color: 'white', width: '125px', height: '45px', fontSize: '18px', marginLeft: '20px', marginTop:'0px', fontWeight: 'bold' }} onClick={() => setOpenModal(true)}>Edit recipe</button>
                                         </div>
                                     ) : null}
 
