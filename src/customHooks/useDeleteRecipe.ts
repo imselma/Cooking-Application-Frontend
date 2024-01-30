@@ -3,12 +3,13 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { String } from "aws-sdk/clients/batch";
+import { BASE_URL } from "../constants";
 
 const useDeleteRecipe = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (id: any) => axios.delete(`http://localhost:2804/api/recipes/${id}`));
+    (id: any) => axios.delete(BASE_URL + `/recipes/${id}`));
 };
 
 export default useDeleteRecipe;

@@ -6,6 +6,7 @@ import useRecipeById from '../../customHooks/useRecipeById';
 import { Recipe2 } from '../../utils/types';
 import axios from 'axios';
 import CreateIngredientModal from '../CreateIngredientModal';
+import { BASE_URL } from '../../constants';
 
 
 const EditRecipeModal = ({ closeModal }) => {
@@ -28,7 +29,7 @@ const EditRecipeModal = ({ closeModal }) => {
         const [submodal, setSubmodal] = useState(false);
 
         useEffect(() => {
-            axios.get("http://localhost:2804/api/ingredients/").then((res) =>
+            axios.get(BASE_URL + "/ingredients/").then((res) =>
             {
                 console.log(res.data);
                 setIngredients(res.data);
