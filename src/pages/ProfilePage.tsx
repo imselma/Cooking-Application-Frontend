@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import EditProfileModal from '../components/EditProfileModal'
-import { User } from '../utils/types'
 import useRecipes from '../customHooks/useRecipes'
 import useUserById from '../customHooks/useUserById'
 import RecipeCard from '../components/RecipeCard'

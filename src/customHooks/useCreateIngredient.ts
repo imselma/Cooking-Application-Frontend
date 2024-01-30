@@ -2,13 +2,13 @@
 import { useMutation, useQueryClient } from "react-query"
 import { Ingredient } from "../utils/types";
 import axios from "axios";
-import { BASE_URL } from "../constants";
+
 
 
 const useCreateIngredient = () => {
     const queryClient = useQueryClient();
     return useMutation((ingredientData: Ingredient) => 
-    axios.post(BASE_URL + "/ingredients/addIngredient", ingredientData) )
+    axios.post("https://cooking-app-backend.onrender.com/ingredients/addIngredient", ingredientData) )
 }
 
 export default useCreateIngredient

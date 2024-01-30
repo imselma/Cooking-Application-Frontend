@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import CreateIngredientModal from "../CreateIngredientModal"
 import useCreateRecipe from "../../customHooks/useCreateRecipe"
-import { BASE_URL } from "../../constants"
+
 
 const CreateRecipeModal = ({ closeModal }) => {
     const [recipeData, setRecipeData] = useState({
@@ -24,14 +24,14 @@ const CreateRecipeModal = ({ closeModal }) => {
     const [userId, setUserId] = useState(localStorage.getItem("userID"));
 
     useEffect(() => {
-        axios.get(BASE_URL + "/users/byemail", { params: { email } }).then(res1 => {
+        axios.get("https://cooking-app-backend.onrender.com/users/byemail", { params: { email } }).then(res1 => {
             console.log(res1.data)
         })
     }, [email])
 
 
     useEffect(() => {
-        axios.get(BASE_URL + "/ingredients/").then((res) =>
+        axios.get("https://cooking-app-backend.onrender.com/ingredients/").then((res) =>
         {
             console.log(res.data);
             setIngredients(res.data);
