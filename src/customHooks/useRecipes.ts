@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 const useRecipes = () => {
     return useQuery('recipes',
-    () => axios.get("https://cooking-app-backend.onrender.com/api/recipes/").then(
+    () => axios.get("http://localhost:2804/api/recipes/").then(
         (response) => {
             const data = response.data;
             console.log(data);
